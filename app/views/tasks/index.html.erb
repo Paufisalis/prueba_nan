@@ -1,29 +1,23 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Tasks</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Photo</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @tasks.each do |task| %>
-      <tr>
-        <td><%= task.title %></td>
-        <td><%= task.photo %></td>
-        <td><%= link_to 'Show', task %></td>
-        <td><%= link_to 'Edit', edit_task_path(task) %></td>
-        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% @todos.each_slice(3) do |todos| %>
+ <div class="card-deck">
+   <% todos.each do |todo| %>
+   <div class="card">
+     <img src="<%= todo.task.photo %>" class="card-img-top" alt="...">
+     <div class="card-body">
+       <h5 class="card-title"><%= todo.task.title %></h5>
+       <% if %>
+       <p><%= link_to "Listo", root_path(todo), class: 'btn btn-success btn-outline' %></p>
 
+        <%= link_to 'Show', task_path, class: 'btn btn-sm btn-primary' %> 
+     </div>
+     <div class="card-footer">
+       <small class="text-muted"><%= time_ago_in_words todo.created_at %></small>
+     </div>
+   </div>
+   <% end %>
+   </div>
 <br>
-
-<%= link_to 'New Task', new_task_path %>
+<% end %>

@@ -1,10 +1,12 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except:[:index]
 
   # GET /tasks
   # GET /tasks.json
   def index
     @tasks = Task.all
+    @todos = Todo.all
   end
 
   # GET /tasks/1
